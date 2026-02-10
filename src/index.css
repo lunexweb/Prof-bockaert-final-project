@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === PERFORMANCE OPTIMIZATION - Added by Cursor === */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+/* === END PERFORMANCE OPTIMIZATION === */
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Individual Colors - Yellow, Black, Red */
+    --background: 0 0% 100%;           /* White background */
+    --foreground: 0 0% 0%;             /* Black text */
+
+    --card: 0 0% 100%;                 /* White cards */
+    --card-foreground: 0 0% 0%;        /* Black card text */
+
+    --popover: 0 0% 100%;              /* White popovers */
+    --popover-foreground: 0 0% 0%;     /* Black popover text */
+
+    --primary: 0 0% 0%;                /* Black primary */
+    --primary-foreground: 0 0% 100%;   /* White on black */
+
+    --secondary: 48 100% 50%;          /* Pure Yellow */
+    --secondary-foreground: 0 0% 0%;   /* Black on yellow */
+
+    --muted: 0 0% 96%;                 /* Light gray */
+    --muted-foreground: 0 0% 45%;      /* Dark gray */
+
+    --accent: 0 84% 60%;               /* Red accent */
+    --accent-foreground: 0 0% 100%;    /* White on red */
+
+    --destructive: 0 84% 60%;          /* Red destructive */
+    --destructive-foreground: 0 0% 100%; /* White on red */
+
+    --border: 0 0% 90%;                /* Light gray border */
+    --input: 0 0% 95%;                 /* Light gray input */
+    --ring: 0 0% 0%;                   /* Black focus ring */
+
+    --radius: 0.75rem;
+
+    /* Individual brand colors */
+    --color-yellow: 48 100% 50%;       /* Pure Yellow */
+    --color-black: 0 0% 0%;            /* Pure Black */
+    --color-red: 0 84% 60%;            /* Pure Red */
+    --color-white: 0 0% 100%;          /* Pure White */
+    --color-gray: 0 0% 50%;            /* Gray */
+    
+    /* No gradients - individual colors only */
+    --gradient-primary: hsl(var(--color-black));
+    --gradient-accent: hsl(var(--color-yellow));
+    
+    /* Shadows using black */
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.1);
+    --shadow-xl: 0 20px 25px -5px hsl(0 0% 0% / 0.1);
+    
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    /* Allow the page to scroll normally on all platforms */
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    /* Explicitly allow vertical scrolling while preventing horizontal scroll */
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Custom animations for better mobile experience */
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.8s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.8s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Smooth transitions for all interactive elements */
+  .smooth-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* GPU acceleration for animations - only when needed */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    /* Only use will-change on hover/active states, not by default */
+  }
+
+  /* Optimized hover effects */
+  .hover-lift {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: auto;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px) translateZ(0);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+    will-change: transform;
+  }
+
+  /* Enhanced focus states for accessibility */
+  .focus-enhanced:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Smooth scroll without momentum */
+  .smooth-scroll {
+    scroll-behavior: auto;
+    overscroll-behavior: none;
+  }
+
+  /* Optimized image loading */
+  .lazy-image {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .lazy-image.loaded {
+    opacity: 1;
+  }
+}
